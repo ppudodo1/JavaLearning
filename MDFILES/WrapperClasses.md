@@ -16,3 +16,9 @@ Wrapper:
 - Character
 - Integer
 - Double
+## Autoboxing
+- Autoboxing is the automatic conversion that the Java compilter makes between primitive and referemce
+data types
+
+## Unboxing
+- Is the reverse of the autoboxing. Automatic conversion of wrapper class to primitive
