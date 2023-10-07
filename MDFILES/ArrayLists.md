@@ -82,3 +82,9 @@ public class Main {
 ```
 In the example above we passed `ArrayList` as value that should be stored in another
 `ArrayList`.
+
+This is the output of the code used above.
+
+```java
+//[[Bread, Burek, Muffini], [Tomatoes, Peppers, Bananas], [Coca-cola, Heineken]]
+```
