@@ -6,10 +6,7 @@ Let's look at one example of `ArrayList`:
 
 ```java
 import java.util.ArrayList;
-    
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
         ArrayList<String> food =  new ArrayList<String>();
@@ -23,8 +20,6 @@ public class Main {
 
     }
 }
-
-
 ```
 
 By using wrapper classes we have access to methodes such as `set` and `get`. 
@@ -51,5 +46,39 @@ public class Main {
         }
     }
 }
-
 ```
+
+Just like we have regular 2d arrays we can also have 2d ArrayLists and they work on the same 
+principle as regular 2d arrays. They are pretty similiar to 2d vectors in c++. They even have similiar methods. 
+
+Here is one example:
+
+```java
+import java.util.ArrayList;
+public class Main {
+    public static void main(String[] args) {
+
+        ArrayList<ArrayList<String>> groceryList = new ArrayList<>();
+        ArrayList<String> bakeryList = new ArrayList<>();
+        bakeryList.add("Bread");
+        bakeryList.add("Burek");
+        bakeryList.add("Muffini");
+
+        ArrayList<String> produceList = new ArrayList<>();
+        produceList.add("Tomatoes");
+        produceList.add("Peppers");
+        produceList.add("Bananas");
+
+        ArrayList<String> drinksList = new ArrayList<>();
+        drinksList.add("Coca-cola");
+        drinksList.add("Heineken");
+
+        groceryList.add(bakeryList);
+        groceryList.add(produceList);
+        groceryList.add(drinksList);
+        System.out.println(groceryList);
+    }
+}
+```
+In the example above we passed `ArrayList` as value that should be stored in another
+`ArrayList`.

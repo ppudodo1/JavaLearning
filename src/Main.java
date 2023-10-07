@@ -5,15 +5,25 @@ import java.util.Random;
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        ArrayList<String> food =  new ArrayList<String>();
-        food.add("Pizza");
-        food.add("Kebab");
-        food.add("Cevpi");
-        food.add("Hamburger");
-        for(int  i = 0;i<food.size();i++){
-            System.out.println(food.get(i));
 
-        }
+        ArrayList<ArrayList<String>> groceryList = new ArrayList<>();
+        ArrayList<String> bakeryList = new ArrayList<>();
+        bakeryList.add("Bread");
+        bakeryList.add("Burek");
+        bakeryList.add("Muffini");
 
+        ArrayList<String> produceList = new ArrayList<>();
+        produceList.add("Tomatoes");
+        produceList.add("Peppers");
+        produceList.add("Bananas");
+
+        ArrayList<String> drinksList = new ArrayList<>();
+        drinksList.add("Coca-cola");
+        drinksList.add("Heineken");
+
+        groceryList.add(bakeryList);
+        groceryList.add(produceList);
+        groceryList.add(drinksList);
+        System.out.println(groceryList);
     }
 }
