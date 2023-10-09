@@ -1,3 +1,8 @@
+# Overloaded Methods
+These methods are basically the same as in c++. They share the same name but have different return
+types or parameters. Let's take a look at a few examples;
+
+```java
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -19,6 +24,8 @@ public class Main {
         return x+y;
     }
     static double add (double x, double y, double z){
-            return  x+y+z;
+        return  x+y+z;
     }
 }
+```
+I think this example is pretty self explanatory because it is pretty similar to what we did in c++ course.
