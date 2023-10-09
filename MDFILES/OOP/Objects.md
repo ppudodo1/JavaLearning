@@ -42,3 +42,31 @@ public class Main {
 ```
 Here we are printing and calling object's _attributes_ and _methods_ by using the `dot (.)`
 operator.
+
+We can also create an array of `objects` like with regular data types here is an example:
+
+`Food.java`
+```java
+public class Food {
+    String name;
+    public Food(String name){
+        this.name = name;
+    }
+}
+```
+`Main.java`
+```java
+import java.util.ArrayList;
+import java.util.Random;
+
+public class Main {
+    public static void main(String[] args) {
+           Food food1 = new Food("chicken");
+           Food food2 = new Food("pizza");
+           Food food3 = new Food("kebab");
+
+           Food[] fridge = {food1,food2, food3};
+           System.out.println(fridge[0].name);
+    }
+}
+```
