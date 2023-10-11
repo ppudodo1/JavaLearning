@@ -43,3 +43,7 @@ if(firstDate==secondDate){}
 
 ## Klase
 - Svaka klasa mora biti smijestena u svoj paket
+- Pomoću operatora `.` moguce je dohavacati sve javne (_public_) resurse klase 
+
+## Operatori u Javi
+- Java ne omogucava _overloadanje_ operatora
