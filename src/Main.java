@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Random;
 public class Main {
     public static void main(String[] args) {
-        Bike bike1 = new Bike("BMX");
-        bike1.go();
+      Hero batman = new Hero("Bruce",46,"money");
+        System.out.println(batman.toString());
     }
 }
