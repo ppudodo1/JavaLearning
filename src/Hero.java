@@ -1,11 +1,16 @@
-public class Hero extends Person{
+public  class Hero extends Person{
     String superpower;
-    public Hero(String name, int age, String superpower){
-        super(name,age);
+    public Hero(String superpower){
+
         this.superpower = superpower;
     }
     @Override
     public String toString(){
-        return super.toString() + " "+this.superpower;
+        return this.superpower;
+    }
+
+    @Override
+    void speak() {
+        System.out.println("Hi");
     }
 }
