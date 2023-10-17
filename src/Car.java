@@ -1,4 +1,4 @@
-public class Car {
+public class Car  extends  Vehicle{
     String make = "Chevorlette";
     String model = "Corvette";
     int year = 1972;
