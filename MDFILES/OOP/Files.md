@@ -1,3 +1,8 @@
+# Files
+Like in `C` and `C++` we can modifiy files with java.
+
+Let's take a look at an example
+```java
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,3 +17,4 @@ public class Main {
         }
     }
 }
+```
