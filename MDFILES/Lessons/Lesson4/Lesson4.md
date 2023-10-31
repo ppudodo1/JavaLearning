@@ -178,7 +178,7 @@ Tokovi su slicni iteratorima za manipuliranje elementima u zbirci. Omogucuju par
 obradivanje podataka cime znatno poboljsavaju performanse. Svaka zbirka ili polje ima 
 mogucnost pozivanja metode `stream` i nad dobivenim tokom obavljati operacije.
 
-**Primjer koristenja `IntStream` operacija**:
+**Primjer koristenja `IntStream` operacija (arrow funkcija iz JS-a)**:
 
 ```java
 import java.util.stream.IntStream;
@@ -195,4 +195,121 @@ public class Main {
           .forEach(vrijednost -> System.out.print(vrijednost + " "));
  }
 }
+```
+## Sucelje `Comparator`
+Za definiranje specificnih kriterija sortiranja moguce je koristiti sucelje
+`Comparator`. Ono sadrzi samo jednu apstraktnu metodu `compare ` koja 
+prima dva objekta i definira njihov odnos koji se koristi kod sortiranja.
+
+**Primjer implementacija sucelja `Comparator`**:
+
+```java
+import java.util.Comparator;
+
+public class Student {
+ private String prezime;
+ private String ime;
+ private String jmbag;
+ private double prosjek;
+public Student(String prezime,String ime, String jmbag, double prosjek){
+    this.prezime=prezime;
+    this.ime = ime;
+    this.jmbag=jmbag;
+    this.prosjek = prosjek;
+}
+ // izostavljene getter metode i konstruktor
+ public double getProsjek(){
+     return  prosjek;
+ }
+ public String toString() {
+  return prezime + " " + ime + "(" + prosjek + ")";
+
+ }
+}
+
+public class ProsjekSorter implements Comparator<Student>{
+    @Override
+    public int compare(Student s1, Student s2){
+        if(st1.getProsjek()> st2.getProsjek()){
+            return 1;
+        }else if (st1.getProsjek()<st2.getProsjek()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+}
+
+// primjer koristenja sa ArrayListom
+public class Main {
+ public static void main(String[] args) {
+  Student prvi = new Student("Perić", "Pero", "0240293832", 4.11);
+  Student drugi = new Student("Ivić", "Ivo", "0240212322", 3.82);
+  Student treci = new Student("Markić", "Marko", "0240297890", 4.78);
+  Student cetvrti = new Student("Horvat", "Ivan", "0240294345", 3.05);
+
+  List<Student> listaStudenata = new ArrayList<>();
+  listaStudenata.add(prvi);
+  listaStudenata.add(drugi);
+  listaStudenata.add(treci);
+  listaStudenata.add(cetvrti);
+  Collections.sort(listaStudenata, new ProsjekSorter());
+  System.out.println(listaStudenata);
+ }
+}
+```
+```java
+import java.util.Comparator;
+
+public class Student {
+ private String prezime;
+ private String ime;
+ private String jmbag;
+ private double prosjek;
+public Student(String prezime,String ime, String jmbag, double prosjek){
+    this.prezime=prezime;
+    this.ime = ime;
+    this.jmbag=jmbag;
+    this.prosjek = prosjek;
+}
+ // izostavljene getter metode i konstruktor
+ public double getProsjek(){
+     return  prosjek;
+ }
+ public String toString() {
+  return prezime + " " + ime + "(" + prosjek + ")";
+
+ }
+}
+
+public class ProsjekSorter implements Comparator<Student>{
+    @Override
+    public int compare(Student s1, Student s2){
+        if(st1.getProsjek()> st2.getProsjek()){
+            return 1;
+        }else if (st1.getProsjek()<st2.getProsjek()){
+            return -1;
+        }else{
+            return 0;
+        }
+    }
+}
+
+// primjer koristenja sa TreeSetom
+public class Main {
+ public static void main(String[] args) {
+  Student prvi = new Student("Perić", "Pero", "0240293832", 4.11);
+  Student drugi = new Student("Ivić", "Ivo", "0240212322", 3.82);
+  Student treci = new Student("Markić", "Marko", "0240297890", 4.78);
+  Student cetvrti = new Student("Horvat", "Ivan", "0240294345", 3.05);
+  SortedSet<Student> setStudenata = new TreeSet<>(new ProsjekSorter());
+  setStudenata.add(prvi);
+  setStudenata.add(drugi);
+  setStudenata.add(treci);
+  setStudenata.add(cetvrti);
+ }
+}
+
+
+
 ```
