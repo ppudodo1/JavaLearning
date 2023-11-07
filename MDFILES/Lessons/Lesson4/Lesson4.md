@@ -309,7 +309,4 @@ public class Main {
   setStudenata.add(cetvrti);
  }
 }
-
-
-
 ```
