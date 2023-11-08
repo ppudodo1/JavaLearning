@@ -89,3 +89,8 @@ doesm't have a body. The body is provided by the subclass (inherited from)</td>
 <td>The value of an attribute is not cached thread-locally, and is always read from the "main memory"</td>
 </tr>
 </table>
+
+
+Image representation of modifiers in java:
+![img_2.png](img_2.png)
+
