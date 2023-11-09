@@ -69,12 +69,12 @@ Trokut trokut = new Trokut();
 
 ## Apstraktne klase i metode
 - Apstraktne klase nisu predivdene da se iz njih kreiraju objekti, vec su namijenjene za 
-nasljedivanje u drugim klasa
-- Objekte iz takvih klasa nije moguce kreirati jer se radi o nedovrsenim klasa
+nasljedivanje u drugim klasama
+- Objekte iz takvih klasa nije moguce kreirati jer se radi o nedovrsenim klasama
 - Oznacavaju se kljucnom rijecju `abstract`
 - Ako klasa ima barem jednu apstraktnu metodu, automatski mora biti apstraktna inace `compiler`
 javlja gresku
-- Apstraktne kalse mogu sadrzavati i vlastiti konstruktor koji se poziva unutar konstruktora
+- Apstraktne klase mogu sadrzavati i vlastiti konstruktor koji se poziva unutar konstruktora
 **podklase**
 
 Primjer:
