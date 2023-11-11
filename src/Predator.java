@@ -1,4 +1,6 @@
 public interface Predator {
-    void hunt();
+    default public void radi(){
+        System.out.println("Nigga balls");
+    }
 
 }

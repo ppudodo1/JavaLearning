@@ -1,4 +1,4 @@
-public  class Hero extends Person{
+public  class Hero {
     String superpower;
     public Hero(String superpower){
 
@@ -9,8 +9,5 @@ public  class Hero extends Person{
         return this.superpower;
     }
 
-    @Override
-    void speak() {
-        System.out.println("Hi");
-    }
+
 }

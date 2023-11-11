@@ -111,7 +111,7 @@ Kako bi sprijecili daljnje nasljedivanje neke klase potrebno je koristiti kljucn
 ```java
 public final class Krug extends DvodimenzionalniOblik
 ```
-Isto vrijedi i za metode, kako bi sprijecili daljnje nadjavavanje neke metode potrebno je koristiti
+Isto vrijedi i za metode, kako bi sprijecili daljnje nadjacavanje neke metode potrebno je koristiti
 kljucnu rijeci `final`. npr.
 ```java
 public final double izracunajOpsegKruga();
@@ -128,7 +128,7 @@ public static final String NAZIV_DRZAVE = "Hrvatska";
 Sucelje je jos jedan od nacina postizanja **apstrakcije** u Javi. `interface` je potpuno
 **apstraktna** klasa koja se koristi kako bi grupirali povezane **metode** sa praznim tijelima.
 Sucelja opisuju koje sve operacije se trebaju moci obavljati, ali ne sadrze nuzno i njihovo
-implementaciju. Sucelja osim metoda mogu sadrzavati i konstantne vrijednost, a svi clanovi
+implementaciju. Sucelja osim metoda mogu sadrzavati i konstantne vrijednosti, a svi clanovi
 sucelja moraju biti `public`.
 
 Primjer:

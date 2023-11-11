@@ -1,4 +1,4 @@
-public class Bike extends Vehicle {
+public class Bike  {
     String name;
     public Bike(String name){
         this.name = name;
