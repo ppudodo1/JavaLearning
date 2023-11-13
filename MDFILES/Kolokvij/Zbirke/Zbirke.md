@@ -257,3 +257,106 @@ IntStream.of(brojevi).filter(vrijednost -> vrijednost % 2 == 0)
         Suma elemenata: 47
         Sortirani parni brojevi: 4 8 10*/
 ```
+Vise o `Stream` api ce biti receno u sljedecoj lekciji.
+
+## Nove funkcionalnosti sa zbirkama u Javi 9
+- U javi 9 su uvedene nove mogucnosti kreiranja `immutable` listi (liste koje se ne mogu
+mijenjati) pomocu `of` metode. Primjer:
+```java
+List<String> immutableList = List.of("Prvi","Drugi","Treci");
+```
+- Nakon kreiranja liste nakdnadne promjene njenog sadrzaja rezultiraju bacanje iznimke
+`UnsupportedOperationException`
+- Na slican nacin je moguce kreirati i mapu
+- Nad `streamovima` je moguce i koristiti metodu `takWhile` za ispis samo onih vrijednosti
+koje ispunjavaju zadani uvjet. Primjer
+```java
+Stream.of(1,2,3,4,5,6,7,8,9,10).takeWhile(i-> i<5).forEach(System.out::println);
+```
+- Na slican nacin se koristi i `dropWhile` metoda za ispis samo onih vrijednosti koje ne 
+ispunjavaju zadani uvjet
+
+## Sucelje `Comparator`
+- Koristi se za definiranje kriterija sortiranja
+- Sadrzi samo jednu **apstraktnu** metodu `compare` koja prima dva objekta i definira 
+njihov odnos koji se koristi kod soritranja.
+- Posto ima samo jednu **apstraktnu** metodu sucelje `Comparator` je ujedno i funkcionalno
+sucelje pa se koristi i u lambda izrazima
+### Primjer implementacije sucelja `Comparator`
+```java
+public class Student {
+  private String prezime;
+  private String ime;
+  private String jmbag;
+  private double prosjek;
+  //izostavljene "getter" metode i konstruktor
+  @Override
+  public String toString() {
+        return prezime + " " + ime + "(" + prosjek + ")";
+    }
+}
+```
+```java
+public class ProsjekSorter implements Comparator<Student> {
+@Override
+  public int compare(Student st1, Student st2) {
+  if(st1.getProsjek() > st2.getProsjek()) {
+      return 1;
+  }
+  else if (st1.getProsjek() < st2.getProsjek()) {
+      return -1;
+  }
+    else {
+        return 0;
+    }
+  }
+}
+```
+```java
+Student prvi = new Student("Perić", "Pero", "0240293832", 4.11);
+Student drugi = new Student("Ivić", "Ivo", "0240212322", 3.82);
+Student treci = new Student("Markić", "Marko", "0240297890", 4.78);
+Student cetvrti = new Student("Horvat", "Ivan", "0240294345", 3.05);
+List<Student> listaStudenata = new ArrayList<>();
+listaStudenata.add(prvi);
+listaStudenata.add(drugi);
+listaStudenata.add(treci);
+listaStudenata.add(cetvrti);
+Collections.sort(listaStudenata, new ProsjekSorter());
+System.out.println(listaStudenata); 
+/*Ispis:
+[Horvat Ivan(3.05), Ivić Ivo(3.82), Perić
+Pero(4.11), Markić Marko(4.78)]*/
+```
+
+## Primjer sortiranja liste po vise kriterija
+
+```java
+Student prvi = new Student("Perić", "Pero", "0240293832", 4.11);
+Student drugi = new Student("Ivić", "Ivo", "0240212322", 4.11);
+Student treci = new Student("Markić", "Marko", "0240297890", 4.11);
+Student cetvrti = new Student("Horvat", "Ivan", "0240294345", 4.11);
+List<Student> listaStudenata = new ArrayList<Student>();
+listaStudenata.add(prvi);listaStudenata.add(drugi);listaStudenata.add(treci);
+listaStudenata.add(cetvrti);
+Function<Student, Double> poProsjeku = Student::getProsjek;
+Function<Student, String> poPrezimenu = Student::getPrezime;
+Comparator<Student> poProsjekuIPrezimenu =
+Comparator.comparing(poProsjeku).thenComparing(poPrezimenu);
+listaStudenata.stream().sorted(poProsjekuIPrezimenu).forEach(System.out::println);
+
+/*
+Ispis
+Horvat Ivan(4.11)
+Ivić Ivo(4.11)
+Markić Marko(4.11)
+Perić Pero(4.11)
+ */
+```
+Objasnjenje koda:
+
+Ovdje koristimo sucelje `Function` koje predstavlja funkciju koja prima jedan argument,
+ a vraca rezulatat (prosjek ili JMBAG studenta). FUnction objekte je potrebno iskoristit
+unutar `Comparator` metoda `comparing` i `thenComparing`. Dobiveni komparator objekt moze
+se iskoristiti u metodi `sorted` kako bi se sortirali elementi po zadanim kriterijima i
+na kraju ispisali pomocu metode `forEach` i koristenjem funkcije `System.out::println`.
