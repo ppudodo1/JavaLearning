@@ -94,3 +94,17 @@ doesm't have a body. The body is provided by the subclass (inherited from)</td>
 Image representation of modifiers in java:
 ![img_2.png](img_2.png)
 
+## Zadaci iz kolokvija
+
+1. Ako je potrebno definirati konstantnu vrijednost u Javi koja ce se moci koristiti u svim
+klasama koje sve modifikatore je potrebno koristiti u tom slucaju: `public`,`static`, `final`
+2. Ako je potrebno definirati vrijednost koja se moze koristiti u svim klasama, da se radi o
+vrijednosti koja se nalazi samo na jednom mjestu u memoriji te kojoj se vrijednost ne moze
+mijenjati, koje sve modifikatore morate koristiti. `public`,`static`, `final`
+3. Koje sve modifikatore je moguce koristiti kod definicija metoda u suceljima: `public`,
+`private`,`default`,`static`.
+4. Ako je potrebno definirati konstantu vrijednost u javi koja ce se moci korsititi samo u paketu u kojem se nalazi koje sve modifikatore je potrebno koristiti u tom slucaju:
+`static` i `final`.
+=> AKO SE NE NAVEDE NIJEDAN MODIFIKATOR PODRAZUMIJEVANI JE PACKAGE PRIVATE KOJI OMOGUCAVA
+PRISTUP CLANOVIMA KLASE SAMO AKO SU KLASE U ISTOM PAKETU
+
