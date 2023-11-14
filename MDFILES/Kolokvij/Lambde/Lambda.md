@@ -79,3 +79,69 @@ operacija nad zbirkama koristenje interne iteracije
 - Optional je zapravo samo neka kutija koja moze i ne mora sadrzavati nas objekt
 - Ako vrijednost naseg objekt nije `null` onda se nalazi u kutiji zvanoj `Optional` inace
 je obrnuto
+
+## Refernece za metode
+- Omogucavaju ponovno iskoristavanja metoda kao lambda izraza:
+```java
+FileFilter x = File f->f.canRead();
+FileFilter x = File::canRead();
+```
+
+### Primjer jednostavnih lamda izraza
+```java
+()-> System.out.println("Hello Lambda");
+x->x+10;
+(int x, int y)->{return x+y;};
+(String x, String y)-> x.length() - y.length();
+(String x)->{
+    listA.add(x);
+    listB.remove(x);
+    return listB.size();
+}
+```
+
+## Najcesce operacije s tokovima
+- `collect(Collectors.toList())`
+  - Sluzi za generiranje liste iz vrijednosti unutar `Streama`
+  - Spada u **eager** operacije
+- `map`
+  - Mapira jednu skupinu vrijednosti u drugu
+  - Npr. moguce je pretvoriti sve `String` vrijednosti u _uppercase_ vrijednosti:
+```java
+List<String> collected = Stream.of("a", "b", "hello")
+.map(string -> string.toUpperCase())
+.collect(Collectors.toList());
+```
+- `filter`
+  - Sluzi za filtriranje vrijednosti prema zadanim vrijednostima
+  NPR:
+```java
+List<String> beginningWithNumbers
+  = Stream.of("a", "1abc", "abc1")
+    .filter(value -> isDigit(value.charAt(0)))
+    .collect(Collectors.toList());
+```
+- `min` i `max`
+  - Pronalaze najmanju i najvecu vrijednost 
+- `reduce`
+  - Koristi se kad je iz zbirke vrijednosti potrebno odrediti jednu vrijednost
+  - Npr. sumu elemenata je moguce izracunati na sljedeci nacin:
+```java
+int count = Stream.of(1, 2, 3)
+.reduce(0, (acc, element) -> acc + element);
+```
+- `flatMap`
+  - Koristi se u slucaju potrebe zamjenom elemenata u toku i njihovo konkateniranje 
+u zajednicku zbirku. Npr sumu elemenata je moguce izracunati na sljedeci nacin:
+```java
+List<Integer> together = Stream.of(asList(1, 2), asList(3, 4))
+  .flatMap(numbers -> numbers.stream())
+  .collect(Collectors.toList());
+  assertEquals(asList(1, 2, 3, 4), together)
+```
+## Koristenje paralelizma
+- Kako bi se maksimalno iskoristila snaga visejezgrenog procesora kod obradivanja podataka
+unutar zbirki, moguce je koristiti _paralelne tokove_
+- Razlika izmedu _serijskih_ i _paralelnih_ tokova ocituje se samo u pozivu metode 
+`parallelStream` umjesto `stream`
+
