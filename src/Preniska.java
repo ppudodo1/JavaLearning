@@ -1,4 +1,4 @@
-public class Preniska extends Exception{
+public class Preniska extends RuntimeException{
 
     public Preniska(String message) {
         super(message);

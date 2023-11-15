@@ -53,6 +53,21 @@ public class MyException extends Exception {
 Cesto se informacije o iznimkama zapisuju u `log` datoteke. Biblioteka `LogBack` se
 konfigurira koristenjem XML datoteke koja se mora nalaziti unutar projekta.
 
+Primjer te `xml` datoteke izgleda ovako:
+```˙xml
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/pogreske.log</file>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="debug">
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>
+```
 LogBack omogucava kreiranja nekoliko razina log zapisa u ovisnosti o njihovoj vaznosti i
 detaljnosti:
 - ERROR
@@ -60,9 +75,35 @@ detaljnosti:
 - INFO
 - DEBUG
 - TRACE
-- 
+
 Primjer `logger` implementacije:
 ```java
   private static final Logger logger = LoggerFactory.getLogger(Main.class);
     logger.error("Unijeli ste ime kategorije koja vec postoji molimo pokusajte ponovno");
 ```
+## Ispis staze stoga iznimke
+- Staza stoga iznimke (`stack trace`) sadrzava kljucne informacije o razlogu bacanja neke
+iznimke i cesto se ispisuje u konzolu razvojnog okruzenja
+- Ispis staze stoga u konzolu moguce je obaviti i pozivom metode `printStackTrace` iz
+objekta koji predstavlja iznimku, a najcesce se koristi unutar `catch` bloka
+ 
+### Primjer koristenja `printStackTrace` metode:
+```java
+public class Main {
+    public static void main(String[] args) {
+        try{
+            readFile("myFile.txt");
+        }catch (Preniska e){
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+    }
+    private static void readFile(String fileName)  {
+            throw new Preniska("Nigga");
+    }
+}
+```
+Ispis gornjeg koda:
+
+![img_2.png](img_2.png)
