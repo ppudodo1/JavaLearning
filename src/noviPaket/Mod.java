@@ -1,5 +1,9 @@
 package noviPaket;
 
 public class Mod {
-   public static final int test = 0;
+   protected int test = 0;
+
+
+   public Mod(int test) {
+   }
 }

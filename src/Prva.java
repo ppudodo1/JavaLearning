@@ -1,4 +1,9 @@
 public abstract class Prva {
-    public abstract void metoda();
+    public Prva() {
+    }
 
+    public  void test() {
+        System.out.println("Nigga balls");
+    }
+    public abstract void test2();
 }

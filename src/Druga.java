@@ -1,8 +1,5 @@
-public  class Druga extends Prva{
+public  class Druga {
 
-    @Override
-    public void metoda() {
-        System.out.println("Nigga");
-    }
+
 
 }

@@ -1,6 +1,10 @@
-public class Automobil {
+import noviPaket.Mod;
+
+public class Automobil extends Mod {
     private float brzina;
-    public Automobil(float brzina) {
+    int test;
+    public Automobil(float brzina, int test) {
+        super(test);
         this.brzina = brzina;
     }
     public float getBrzina() {
