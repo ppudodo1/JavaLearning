@@ -101,7 +101,7 @@ posebno oblikovane XML datoteke koja ima ekstenziju ".fxml" (FX Markup Language)
   ugnjezdenji organizator rasporeda komponenti
   - Primjer:
   ![img_5.png](img_5.png)
-- ### GripPane
+- ### GridPane
     - Omogucava umetanje elemenata na graficko sucelje koristenjem tablice
   koja ima odreden broj redaka i stupaca
     - Prikladan za kreiranje ekrana koji sadrze forme za unos podataka 
