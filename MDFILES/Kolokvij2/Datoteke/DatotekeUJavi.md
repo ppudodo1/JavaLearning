@@ -253,3 +253,36 @@ try {
     System.err.println(ex);
 }
 ```
+
+# Zadaci iz kolokvija
+1. zad:
+![img_1.png](img_1.png)
+Rješenje:
+```java
+try (Stream<String> stream = Files.lines(new File("mojaDat.txt").toPath(),Charset.forName("UTF-8"))){
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+```
+2. zad:
+![img_2.png](img_2.png)
+Rješenje: C i E
+
+Primjer:
+![img_3.png](img_3.png)
+
+3. zad:
+![img_4.png](img_4.png)
+Rijesenje: Neće se ispisati nista zbog greske kod prevodanja programskog isjecka
+Greska je u tome sto metoda read() vraca int, a ne String
+4. zad:
+![img_5.png](img_5.png)
+Rijesenje:6. i ovdje nije ponudeno ali mogu biti i `effectively final`
+5. zad:
+![img_6.png](img_6.png)
+Rijesenje: readString();
+6. zad:
+![img_7.png](img_7.png)
+Rijesenje: ClassNotFoundException i IOException
+Primjer: 
+![img_8.png](img_8.png)

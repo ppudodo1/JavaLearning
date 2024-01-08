@@ -1,9 +1,9 @@
 import noviPaket.Mod;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -19,8 +19,12 @@ import static java.util.Arrays.asList;
 public class Main {
 
     public static void main(String[] args) {
-           String a = String.valueOf("a");
-           System.out.println(a);
+        try(BufferedReader reader = new BufferedReader(new FileReader("./dats/citaj.txt"))){
+                String procitano = reader.read();
+                System.out.println(procitano);
+        }catch ( IOException e){
+            e.printStackTrace();
+        }
     }
 
 
