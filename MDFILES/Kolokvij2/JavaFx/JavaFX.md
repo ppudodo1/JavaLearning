@@ -105,3 +105,72 @@ posebno oblikovane XML datoteke koja ima ekstenziju ".fxml" (FX Markup Language)
     - Omogucava umetanje elemenata na graficko sucelje koristenjem tablice
   koja ima odreden broj redaka i stupaca
     - Prikladan za kreiranje ekrana koji sadrze forme za unos podataka 
+
+## Zadaci sa kolokvija
+
+1.zad:
+
+![img_6.png](img_6.png)
+
+Riješenje: void initialize() => na ovo mozemo gledati kao konstruktor ekrana koji se ucita u JavaFx
+
+2. zad:
+
+![img_7.png](img_7.png)
+
+Riješenje: FlowPane, HBox i Vbox => Jos provjeriti
+
+3. zad:
+
+![img_8.png](img_8.png)
+
+Riješenje: TextField
+
+4. zad:
+
+![img_9.png](img_9.png)
+
+5. zad:
+
+![img_10.png](img_10.png)
+
+Rijesenje:
+![img_11.png](img_11.png)
+
+6. zad:
+
+![img_12.png](img_12.png)
+
+7. zad:
+
+![img_13.png](img_13.png)
+
+8. zad:
+
+![img_14.png](img_14.png)
+
+9. zad:
+
+![img_15.png](img_15.png)
+
+10. zad: 
+
+![img_16.png](img_16.png)
+
+11. zad:
+
+![img_17.png](img_17.png)
+
+12. zad:
+
+![img_18.png](img_18.png)
+
+13. zad:
+
+![img_19.png](img_19.png)
+
+14. zad:
+
+![img_20.png](img_20.png)
+
+Rijesenje: F

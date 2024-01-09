@@ -60,6 +60,88 @@ koristiti sadrzaj datoteke:
             System.out.printf("%s ne postoji!%n", path);
         }
 ```
+## Neke od metoda Paths sucelja
+
+```java
+// Primjeri metoda Paths sucelja
+        //Normalizes this path, removing redundant elements such as "." and "..".
+        Path dirtyPath = Paths.get("/home/user/./../documents/file.txt");
+        Path cleanPath = dirtyPath.normalize();
+        //Returns the absolute form of this path.
+        Path relativePath = Paths.get("documents/file.txt");
+        Path absolutePath = relativePath.toAbsolutePath();
+        //Returns the parent path or null if this path does not have a parent.
+        Path filePath = Paths.get("/home/user/documents/file.txt");
+        Path parentPath = filePath.getParent();
+        //Returns the file or directory name at the end of this path.
+        Path filePath2 = Paths.get("/home/user/documents/file.txt");
+        Path fileName = filePath2.getFileName();
+        //Returns the number of elements in the path.
+        Path filePath3 = Paths.get("/home/user/documents/file.txt");
+        int nameCount = filePath3.getNameCount();
+        //Returns the name element at the specified index in the path.
+        Path filePath4 = Paths.get("/home/user/documents/file.txt");
+        Path element = filePath4.getName(2); // Returns "documents"
+        //Returns a relative subpath of this path.
+        Path filePath5 = Paths.get("/home/user/documents/file.txt");
+        Path subpath = filePath5.subpath(1, 3); // Returns "user/documents"
+        //Tests if this path starts with the given path.
+        Path basePath = Paths.get("/home/user");
+        Path testPath = Paths.get("/home/user/documents/file.txt");
+        boolean startsWith = testPath.startsWith(basePath); // true
+        //Tests if this path ends with the given path.
+        Path basePath2 = Paths.get("/home/user");
+        Path testPath2 = Paths.get("/home/user/documents/file.txt");
+        boolean endsWith = testPath2.endsWith("documents/file.txt"); // true
+
+```
+
+## Primjeri metoda Files klase
+
+```java
+Path path = Path.of("dats/citaj.txt");
+        Path directoryPath = Path.of("./dats");
+        // dohvacanje svih linija datoteke na nekoj putanji
+        try (Stream<String> lines = Files.lines(path)) {
+            lines.forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // citanje datoteka u nekom direktoriju
+        try (Stream<Path> files = Files.list(directoryPath)) {
+            files.forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //otvaranje mapa i omogucava citanje njenog sadrzaja
+        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directoryPath)) {
+            directoryStream.forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        //Otvaranje mapa i podmapa u hijerarhiji
+        try (Stream<Path> walk = Files.walk(directoryPath)) {
+            walk.forEach(System.out::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // citanje cijele dataoteke pomocu readString metode
+        try {
+            String content = Files.readString(path);
+            System.out.println(content);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // filtriranje datoteka na zadanoj putanji
+        try (Stream<Path> files = Files.list(directoryPath)) {
+            files.filter(Files::isRegularFile)
+                    .filter(path1 -> path1.toString().endsWith(".txt"))
+                    .forEach(System.out::println);
+        }
+
+```
+
+
 ## Klasa Formater
 - Sluzi za oblikovanje teksta koji se moze zapisivati u datoteku po principu
 koristenja metode printf, kao u C-u
