@@ -118,7 +118,7 @@ Riješenje: void initialize() => na ovo mozemo gledati kao konstruktor ekrana ko
 
 ![img_7.png](img_7.png)
 
-Riješenje: FlowPane, HBox i Vbox => Jos provjeriti
+Riješenje: FlowPane, HBox, Vbox i BorderPane => Jos provjeriti
 
 3. zad:
 
