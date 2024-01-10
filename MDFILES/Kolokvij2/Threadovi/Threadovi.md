@@ -118,3 +118,242 @@ public class TaskExecutor
     Waiting stanj
   -  notifyAll: sve niti u Waiting stanju prelaze u Running stanje i pokušavaju ući u kritični
     isječak te provjeriti je li resurs koji im je potreban za izvršavanje zadatka slobodan
+
+
+## Primjeri threadova
+
+- ### Primjer threada koji extenda Thread klasu
+```java
+import java.io.*;
+public class ThreadTest extends Thread{
+    @Override
+    public void run(){
+        for(int i = 1;i<=5;i++){
+            System.out.println(i);
+            //Thread.sleep moze baciti InterruptedException pa ga moramo staviti u try Catch
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
+public class Main {
+  public static void main(String[] args) throws IOException {
+    for(int i = 0;i<5;i++){
+      ThreadTest threadTest = new ThreadTest();
+      threadTest.start();
+    }
+  }
+  
+}
+```
+
+- ### Primjer threada koji implementira Runnable sucelje
+- Kod koristenja Runnable sucelja i Thread klase da bi se definirale niti nema puno razlike oboje moraju overridati `run` metodu
+- Jedina prednost kod Runnable sucelja je sto onda klasa moze nasljediti neku drugu klasu koja ne mora biti klasa `Thread` te
+moze implemenitrati vise razlicitih sucelja
+```java
+public class ThreadTest implements Runnable{
+    @Override
+    public void run(){
+        for(int i = 1;i<=5;i++){
+            System.out.println(i);
+            //Thread.sleep moze baciti InterruptedException pa ga moramo staviti u try Catch
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
+public class Main {
+  public static void main(String[] args) throws IOException {
+    for(int i = 0;i<5;i++){
+      ThreadTest threadTest = new ThreadTest();
+      Thread thread = new Thread(threadTest);
+      thread.start();
+      // Ovdje samo napomena da mozemo iskorititi thread.join() ako zelimo da jedan thread zavrsi pa da se pokrene sljedeci
+      // thread.join() takoder baca InterruptedException tako da ga moramo okruziti sa try-catch blokom
+    }
+  }
+}
+```
+
+## Radovanovi primjer i objasnjenja
+- ### Primjer kreiranja i izvrsavanja niti koristenjem Execution frameworka u Javi
+- Objasnjenje: Pomocu ExecutorService objekta kreiramo _thread pool_ te pomocu metode execute koja prima Runnable tip objekta izvrsavamo nit
+- Ovo je ujedno i primjer paralelnog izvrsavanja niti
+```java
+public class ThreadTest implements Runnable{
+    @Override
+    public void run(){
+        for(int i = 1;i<=5;i++){
+            System.out.println(i);
+            //Thread.sleep moze baciti InterruptedException pa ga moramo staviti u try Catch
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+}
+public class Main {
+  public static void main(String[] args) throws IOException {
+    for(int i = 0;i<5;i++){
+      ThreadTest threadTest = new ThreadTest();
+      ExecutorService executorService = Executors.newCachedThreadPool();
+      executorService.execute(threadTest);
+    }
+  }
+}
+```
+- ### Primjer koristenja zajednickog resursa bez sinkronizacije
+```java
+import java.security.SecureRandom;
+import java.util.Arrays;
+
+public class SimpleArray {
+    private static final SecureRandom generator = new SecureRandom();
+    private final int[] array; // podjeljenji array
+    private int writeIndex = 0; // djeljenji index elementa koji treba upisati
+    public SimpleArray(int size){
+        array = new int[size];
+    }
+    public String toString(){
+        return Arrays.toString(array);
+    }
+    public void add (int value){
+        int position = writeIndex;
+        try{
+            // stavljamo nit na spavanje izmedu 0 do 0.5 sek => ovo je random
+            Thread.sleep(generator.nextInt(500));
+        }catch (InterruptedException e){
+            Thread.currentThread().interrupt(); // ponovo prekidamo thread
+        }
+        array[position] = value;
+        System.out.printf("%s wrote %2d to element %d.%n",
+                Thread.currentThread().getName(), value, position);
+        ++writeIndex; // increment index of element to be written next
+        System.out.printf("Next write index: %d%n", writeIndex);
+    }
+}
+public class ArrayWriter implements Runnable{
+  private final SimpleArray sharedSimpleArray;
+  private final int startValue;
+  public ArrayWriter(int value,SimpleArray array){
+    startValue = value;
+    sharedSimpleArray = array;
+  }
+  @Override
+  public void run() {
+    for(int i = startValue;i<startValue+3;i++){
+      sharedSimpleArray.add(i);
+    }
+  }
+}
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+
+    SimpleArray sharedSimpleArray = new SimpleArray(6);
+    ArrayWriter writer1 = new ArrayWriter(1, sharedSimpleArray);
+    ArrayWriter writer2 = new ArrayWriter(11, sharedSimpleArray);
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    executorService.execute(writer1);
+    executorService.execute(writer2);
+    executorService.shutdown();
+
+    try {
+
+      boolean tasksEnded =
+              executorService.awaitTermination(1, TimeUnit.MINUTES);
+      if (tasksEnded) {
+        System.out.printf("%nContents of SimpleArray:%n");
+        System.out.println(sharedSimpleArray); // print contents
+      } else
+        System.out.println(
+                "Timed out while waiting for tasks to finish.");
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+
+    }
+  }
+}
+```
+- ### Primjer koristenja zajednickog resursa sa sinkronizacijom
+```java
+import java.security.SecureRandom;
+import java.util.Arrays;
+
+public class SimpleArray {
+    private static final SecureRandom generator = new SecureRandom();
+    private final int[] array; // podjeljenji array
+    private int writeIndex = 0; // djeljenji index elementa koji treba upisati
+    public SimpleArray(int size){
+        array = new int[size];
+    }
+    public synchronized String toString(){
+        return Arrays.toString(array);
+    }
+    public synchronized void add (int value){
+        int position = writeIndex;
+        try{
+            // stavljamo nit na spavanje izmedu 0 do 0.5 sek => ovo je random
+            Thread.sleep(generator.nextInt(500));
+        }catch (InterruptedException e){
+            Thread.currentThread().interrupt(); // ponovo prekidamo thread
+        }
+        array[position] = value;
+        System.out.printf("%s wrote %2d to element %d.%n",
+                Thread.currentThread().getName(), value, position);
+        ++writeIndex; // increment index of element to be written next
+        System.out.printf("Next write index: %d%n", writeIndex);
+    }
+}
+public class ArrayWriter implements Runnable{
+  private final SimpleArray sharedSimpleArray;
+  private final int startValue;
+  public ArrayWriter(int value,SimpleArray array){
+    startValue = value;
+    sharedSimpleArray = array;
+  }
+  @Override
+  public void run() {
+    for(int i = startValue;i<startValue+3;i++){
+      sharedSimpleArray.add(i);
+    }
+  }
+}
+public class Main {
+
+  public static void main(String[] args) throws IOException {
+
+    SimpleArray sharedSimpleArray = new SimpleArray(6);
+    ArrayWriter writer1 = new ArrayWriter(1, sharedSimpleArray);
+    ArrayWriter writer2 = new ArrayWriter(11, sharedSimpleArray);
+    ExecutorService executorService = Executors.newCachedThreadPool();
+    executorService.execute(writer1);
+    executorService.execute(writer2);
+    executorService.shutdown();
+
+    try {
+
+      boolean tasksEnded =
+              executorService.awaitTermination(1, TimeUnit.MINUTES);
+      if (tasksEnded) {
+        System.out.printf("%nContents of SimpleArray:%n");
+        System.out.println(sharedSimpleArray); // print contents
+      } else
+        System.out.println(
+                "Timed out while waiting for tasks to finish.");
+    } catch (InterruptedException ex) {
+      ex.printStackTrace();
+
+    }
+  }
+}
+```

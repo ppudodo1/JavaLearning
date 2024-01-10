@@ -9,6 +9,9 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.function.BinaryOperator;
 import java.util.function.IntBinaryOperator;
 import java.util.stream.Collectors;
@@ -22,52 +25,30 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        SimpleArray sharedSimpleArray = new SimpleArray(6);
+        ArrayWriter writer1 = new ArrayWriter(1, sharedSimpleArray);
+        ArrayWriter writer2 = new ArrayWriter(11, sharedSimpleArray);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        executorService.execute(writer1);
+        executorService.execute(writer2);
+        executorService.shutdown();
 
-
-
-
-        Path path = Path.of("dats/citaj.txt");
-        Path directoryPath = Path.of("./dats");
-        // dohvacanje svih linija datoteke na nekoj putanji
-        try (Stream<String> lines = Files.lines(path)) {
-            lines.forEach(System.out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // citanje datoteka u nekom direktoriju
-        try (Stream<Path> files = Files.list(directoryPath)) {
-            files.forEach(System.out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //otvaranje mapa i omogucava citanje njenog sadrzaja
-        try (DirectoryStream<Path> directoryStream = Files.newDirectoryStream(directoryPath)) {
-            directoryStream.forEach(System.out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //Otvaranje mapa i podmapa u hijerarhiji
-        try (Stream<Path> walk = Files.walk(directoryPath)) {
-            walk.forEach(System.out::println);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // citanje cijele dataoteke pomocu readString metode
         try {
-            String content = Files.readString(path);
-            System.out.println(content);
-        } catch (IOException e) {
-            e.printStackTrace();
+// wait 1 minute for both writers to finish executing
+            boolean tasksEnded =
+                    executorService.awaitTermination(1, TimeUnit.MINUTES);
+            if (tasksEnded) {
+                System.out.printf("%nContents of SimpleArray:%n");
+                System.out.println(sharedSimpleArray); // print contents
+            } else
+                System.out.println(
+                        "Timed out while waiting for tasks to finish.");
+        } catch (InterruptedException ex) {
+            ex.printStackTrace();
+
         }
-        // filtriranje datoteka na zadanoj putanji
-        try (Stream<Path> files = Files.list(directoryPath)) {
-            files.filter(Files::isRegularFile)
-                    .filter(path1 -> path1.toString().endsWith(".txt"))
-                    .forEach(System.out::println);
-        }
+
     }
-
-
 
 }
 
