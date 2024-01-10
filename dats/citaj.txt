@@ -1,4 +1,1 @@
-Programiranje
-u
-jeziku
-Java
+Daj upisi mi cijeli String u datoteku odjednomDaj upisi mi cijeli String u datoteku odjednom When someone says to you imaš dobra jaja it means you have good balls
