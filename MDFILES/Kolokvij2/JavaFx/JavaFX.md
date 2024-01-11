@@ -129,6 +129,7 @@ Riješenje: TextField,
 Controller => Ne postoji
 
 Scrollbar izgleda ovako te imamo horizontalni i vertikalni
+
 ![img_21.png](img_21.png)
 
 
