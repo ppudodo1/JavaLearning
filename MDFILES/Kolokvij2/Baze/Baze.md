@@ -148,3 +148,34 @@ private static Connection connectToDatabase() throws SQLException, IOException {
     return veza;
 }
 ```
+
+# Zadaci sa kolokvija
+
+## 1.zad:
+![img_1.png](img_1.png)
+
+**Rijesenje:** localhost
+## 2.zad:
+![img_2.png](img_2.png)
+
+**Rijesenje:** Metodi ne nedostaje nista
+## 3.zad:
+![img_3.png](img_3.png)
+**Rijesenje:** load
+## 4.zad:
+![img_4.png](img_4.png)
+**Rijesenje:** Nista od navedenog nije ispravno => provjeriti ovo
+## 5.zad:
+![img_5.png](img_5.png)
+
+**Rijesenje:** prepareStament
+## 6.zad:
+![img_6.png](img_6.png)
+**Rijesenje:** A => provjeriti jos
+## 7.zad:
+![img_7.png](img_7.png)
+**Rijesenje:** Properties
+## 8.zad:
+![img_8.png](img_8.png)
+
+**Rijesenje**: B i D

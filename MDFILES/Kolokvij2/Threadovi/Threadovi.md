@@ -357,3 +357,37 @@ public class Main {
   }
 }
 ```
+
+# Zadaci sa kolokvija
+
+## 1.zad:
+![img.png](img.png)
+**Rijesenje:** Platform.runLater
+## 2.zad:
+![img_1.png](img_1.png)
+**Rijesenje:** Koristenjem metode `start` iz klase Thread
+## 3.zad => varijacija 2.zad:
+![img_2.png](img_2.png)
+## 4.zad
+![img_3.png](img_3.png)
+**Rijesenje:** Vlastiti stog za pozivanje metoda.
+## 5.zad:
+![img_4.png](img_4.png)
+**Rijesenje:** KeyFrame
+## 6.zad:
+![img_5.png](img_5.png)
+**Rijesenje:** implements `Runnable` => ez bodovi zadatak
+## 7.zad:
+![img_6.png](img_6.png)
+
+**Rijesenje**: Nijedna, kada nit izvrsi sa izvodenjem odnosno prijede u stanje `Terminated`
+ona se ne moze ponovno pozvati samo se mogu dohvacati vrijednosti iz njenog objekta.
+## 8.zad:
+![img_7.png](img_7.png)
+
+**Rijesenje:** Sve je rijesenje
+
+## 9.zad:
+![img_8.png](img_8.png)
+
+**Rijesenje** Svaka nit u javi ima stog za pozivanje metoda (call stack) i programsko brojilo (program counter)
