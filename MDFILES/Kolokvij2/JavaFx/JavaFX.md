@@ -271,6 +271,7 @@ vidljiv je samo `ComboBox` iako ovo moze vrlo lako biti `ChoiceBox`. Predpostavl
 da puno ljudi prolazi kolokvij samo promjeni odgovor ovdje da bi ih mogao sto vise bacit.
 
 Slika: ChoiceBoxa i ComboBoxa jedan ispod drugog. ChoiceBox je na vrhu
+
 ![img_23.png](img_23.png)
 
 
