@@ -196,30 +196,114 @@ preko Menu komponente.
 Primjer MenuItema i ostalih komponenta:
 
 ![img_22.png](img_22.png)
+
 7. zad:
 
 ![img_13.png](img_13.png)
+
+Moj primjer:
+```java
+package hr.java.production;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
+import javafx.stage.Stage;
+import javafx.scene.control.MenuItem;
+
+import java.io.IOException;
+
+public class HelloApplication extends Application {
+    public static Stage mainstage;
+    @Override
+    public void start(Stage stage) throws IOException {
+        ScrollPane scrollPane = new ScrollPane();
+        // Add your content to the scroll pane
+
+        ContextMenu contextMenu = new ContextMenu();
+        MenuItem menuItem = new MenuItem("Context Menu Item");
+        contextMenu.getItems().add(menuItem);
+
+        scrollPane.setOnMousePressed(event -> {
+            if (event.getButton() == MouseButton.SECONDARY) {
+                contextMenu.show(stage, event.getScreenX(), event.getScreenY());
+            }
+        });
+
+        Scene scene = new Scene(scrollPane, 300, 200);
+        stage.setScene(scene);
+        stage.setTitle("Context Menu Example");
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch();
+    }
+    public static Stage getStage() {
+        return mainstage;
+    }
+}
+```
 
 8. zad:
 
 ![img_14.png](img_14.png)
 
+Ovaj zadatak ovdje je klasicna Radovanova igra rijecima. `@FXML` anotacija se koristi
+samo kod komponenata koje se nalaze u FXML datoteci. Ta anotacija se koristi kako bi
+mogli povezati varijablu ili metodu sa tom grafickom komponentom, ova definicija je uzeta
+iz Radovanove prezentacije. Ali prema mome iskustvu ta @FXML anotacija se **moze** i **ne mora**
+koristiti sa metodoma, dok je kod varijabli obavezna ako se ne stavi kod varijabli bacat ce gresku.
+U zadatku se koristi rijec _potrebno_ te su u pitanje metode nad kojima **NIJE POTREBNO** staviti tu anotaciju, a ne varijable tako da bi tocan
+odgovor bio: **Nijednu**. Ps: ja u laboratorijskim vjezbama kad bi pisao metode u `Controller` klasama
+nikad nisam koristio `@FXML` anotaciju, samo za varijable. Ovakav zadatak je najbolje ne odgovoriti
+ili procitati svaku rijec 100 puta da znate sto Radovan misli, a ni onda nije zagarantiran tocan odgovor.
 9. zad:
 
 ![img_15.png](img_15.png)
+Ovaj zadatak je isto cisti zajeb te ako tocno odgovoris je na srecu. Problem
+predstavlja ponudena `ChoiceBox` komponenta koja navodno nije vidljiva, ali `ChoiceBox`
+i `ComboBox` su jednaki po izgledu iako imaju razlicite funkcionalnosti. Prema Radovanovom
+vidljiv je samo `ComboBox` iako ovo moze vrlo lako biti `ChoiceBox`. Predpostavljam da ako vidi
+da puno ljudi prolazi kolokvij samo promjeni odgovor ovdje da bi ih mogao sto vise bacit.
+
+Slika: ChoiceBoxa i ComboBoxa jedan ispod drugog. ChoiceBox je na vrhu
+![img_23.png](img_23.png)
+
 
 10. zad: 
 
 ![img_16.png](img_16.png)
 
+Ne postoji `TablePane`. 
 11. zad:
 
 ![img_17.png](img_17.png)
+
+Evo primjera koda u kojem se koristi ta metoda:
+```java
+scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+root.setStyle("-fx-background: rgb(225, 228, 203)");
+```
+
+Vezano za ovaj zadatak sa dodavanjem stvari. FXML file se dodaje na ovaj nacin. Koristi se metoda `load`
+```java
+BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("Sample.fxml"))
+// ili mozemo koristiti konstruktor FXMLLoader objekta
+FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
+```
 
 12. zad:
 
 ![img_18.png](img_18.png)
 
+Objasnjenje: `FXMl` anotaciju koristimo kada mijenjamo vrijednosti nekog elementa npr. TextFielda ili ComboBoxa,
+ali kada imamo `button` ili neki drugi element kojemu ne mijenjamo vrijednost ne moramo koristiti `@FXML` anotaciju. 
+Za gornji primjer vjv. u Controller klasi ni necemo definirati button komponentu jer cemo na nju samo dodati metodu u SceneBuilderu.
+Stoga su odgovori: `TextField` i `ComboBox`
 13. zad:
 
 ![img_19.png](img_19.png)
@@ -228,4 +312,5 @@ Primjer MenuItema i ostalih komponenta:
 
 ![img_20.png](img_20.png)
 
+Ovaj zadatak je prije objasnjen
 Rijesenje: F
