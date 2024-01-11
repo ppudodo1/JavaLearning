@@ -310,6 +310,8 @@ Stoga su odgovori: `TextField` i `ComboBox`
 
 ![img_19.png](img_19.png)
 
+Rijesenje: setValues i setComponents metode ne postoje za ComboBox, niti postoje toArrayList
+i observableCollection metode za FXCollections klasu
 14. zad:
 
 ![img_20.png](img_20.png)
