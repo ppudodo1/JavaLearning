@@ -124,23 +124,78 @@ Riješenje: FlowPane, HBox, Vbox i BorderPane => Jos provjeriti
 
 ![img_8.png](img_8.png)
 
-Riješenje: TextField
+Riješenje: TextField,
+
+Controller => Ne postoji
+
+Scrollbar izgleda ovako te imamo horizontalni i vertikalni
+![img_21.png](img_21.png)
+
 
 4. zad:
 
 ![img_9.png](img_9.png)
+
+GridPane koristi zamijenjene pozicije indeksa za retke i stupce
+
+Primjer:
+```java
+public class GridPaneExample extends Application {
+
+    @Override
+    public void start(Stage primaryStage) {
+        GridPane gridPane = new GridPane();
+
+        // Dodajemo nekoliko dugmadi na različite pozicije unutar GridPane-a
+        Button button1 = new Button("Button 1");
+        gridPane.add(button1, 0, 0); // Stupac 0, Red 0
+
+        Button button2 = new Button("Button 2");
+        gridPane.add(button2, 1, 0); // Stupac 1, Red 0
+
+        Button button3 = new Button("Button 3");
+        gridPane.add(button3, 0, 1); // Stupac 0, Red 1
+
+        Button button4 = new Button("Button 4");
+        gridPane.add(button4, 1, 1); // Stupac 1, Red 1
+
+        Scene scene = new Scene(gridPane, 300, 200);
+        primaryStage.setTitle("GridPane Example");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
 
 5. zad:
 
 ![img_10.png](img_10.png)
 
 Rijesenje:
+
 ![img_11.png](img_11.png)
+
+Kao što piše ovdje ne treba napraviti nista jer se `initialize` metoda ponasa kao konstruktor
+odnosno poziva se automatski kada se ucita ekran koji koristi `StartController`.
 
 6. zad:
 
 ![img_12.png](img_12.png)
 
+Kao što je obojano crnom bojom vidi se Menu, tocno bi bilo i da kazemo da se vidi 
+MenuBar zato sto je MenuBar kontejner za Menu komponente. Menu komponente su u ovom slucaju
+`Županije`,`Simpotomi`,`Bolesti`,`Virusi` i `Osobe`. Tko god da je rijesavao ovaj ispit
+je zaokruzio MenuItem sto je netocno. MenuItem je komponenta koja nam iskoci kada hoveramo
+preko Menu komponente.
+
+Primjer MenuItema i ostalih komponenta:
+
+![img_22.png](img_22.png)
 7. zad:
 
 ![img_13.png](img_13.png)
