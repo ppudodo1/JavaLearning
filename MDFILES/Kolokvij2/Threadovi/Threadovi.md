@@ -359,13 +359,33 @@ public class Main {
 ```
 
 # Zadaci sa kolokvija
-
+- Platform.runLater() i klasa KeyFrame ce biti u kolokviju
+- U kolokviju ce biti da programer ne odreduje kad ce se nit poceti izvoditi vec OS (thread scheduler)=> tako je rekao na predavanju
+- Defaultni prioritet niti je od 1-5, dok je najvisi 1-10
 ## 1.zad:
 ![img.png](img.png)
 **Rijesenje:** Platform.runLater
 ## 2.zad:
 ![img_1.png](img_1.png)
 **Rijesenje:** Koristenjem metode `start` iz klase Thread
+
+**Objasnjenje:** Ovdje jos treba napomenuti da ako klasa nasljeduje sucelje `Runnable`
+onda njen objekat trebamo proslijediti u konstruktor `Thread` objekta. Tek onda mozemo 
+pozvati metodu `start`. 
+
+Primjer:
+```java
+  MyThreadClass myThread = new MyThreadClass(); // recimo da je ovo klasa koja implementira 
+//sucelje Runnable da
+    Thread thread = new Thread(myThread);
+    thread.start(); // sada kad smo ubacili Runnable tip objekta u konstruktor klase Thread
+    // mozemo pozvati metodu start
+    // slicno vrijedi i za Execution framework
+
+
+```
+
+
 ## 3.zad => varijacija 2.zad:
 ![img_2.png](img_2.png)
 ## 4.zad
