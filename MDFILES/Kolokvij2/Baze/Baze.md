@@ -155,16 +155,100 @@ private static Connection connectToDatabase() throws SQLException, IOException {
 ![img_1.png](img_1.png)
 
 **Rijesenje:** localhost
+
+**Dodatno objasnjenje:** Dijelovi url-a za spajanje na bazu podata su `jdbc:h2` sto
+oznacava tip baze podataka, `tcp://localhost/~/` sto oznacava lokaciju baze podataka,
+`Java-2021` sto oznacava ime baze podataka. Kada kreiramo bazu koristimo `Generic H2(Embedded)`
+nacin rada sto nam daje ovakav url na bazu: `jdbc:h2:~/production`. Ali kad pristupamo bazi
+ako zelimo izvrsavati neke upite i opcenito raditi sa bazom koristimo `Generic H2(Server)`
+nacin rada odnosno klijent-posluzitelj nacin (administratorski) nacin rada. To nam
+daje ovakav url na bazu: `jdbc:h2:tcp://localhost/~/production`. Ovaj url sadrzava `localhost`
+komponentu koja je navedena u gornjem zadatku.
+
 ## 2.zad:
 ![img_2.png](img_2.png)
 
 **Rijesenje:** Metodi ne nedostaje nista
+#### Primjer zatvaranja baze:
+- Naravno ovdje nije potrebno stavljati `veza.close` u try-catch, ali moze se.
+- Ovo je ispravan nacin za zatvorit bazu i ona ce se zatvoriti, ali radi bolje sigurnosti
+se nekad koristi i `finally` blok koji osigurava da ce se baza zatvoriti i ako se baci iznimka
+- Jos jedan od _pametnijih_ nacina za zatvoriti bazu je da koristimo `try with resources` blok
+jer on takoder automatski poziva metodu close i na `Connection` tip objekta, a ne samo na datoteke
+```java
+public static Connection connectToDatabase() throws SQLException, IOException {
+        Properties svojstva = new Properties();
+        svojstva.load(new FileReader(DATABASE_FILE));
+        String urlBazePodataka = svojstva.getProperty("databaseUrl");
+        String korisnickoIme = svojstva.getProperty("username");
+        String lozinka = svojstva.getProperty("password");
+        Connection veza = DriverManager.getConnection(urlBazePodataka,
+                korisnickoIme, lozinka);
+        try{
+            veza.close();
+        }catch (SQLException ex){
+
+        }
+        return veza;
+    }
+
+```
+
 ## 3.zad:
 ![img_3.png](img_3.png)
-**Rijesenje:** load
+**Rijesenje:** load, FileReader, getProperty
+
+#### Primjer:
+- Properties klasa se uglavnom koristi radi dodatne sigurnosti pri spajanju na bazu
+```java
+ Properties svojstva = new Properties();
+        svojstva.load(new FileReader(DATABASE_FILE));
+        String urlBazePodataka = svojstva.getProperty("databaseUrl");
+        String korisnickoIme = svojstva.getProperty("username");
+        String lozinka = svojstva.getProperty("password");
+```
+
+
 ## 4.zad:
 ![img_4.png](img_4.png)
-**Rijesenje:** Nista od navedenog nije ispravno => provjeriti ovo
+
+**Rijesenje:** Nista od navedenog nije ispravno
+
+**Objasnjenje:** Ovdje treba paziti, tocno je reci da se nad objektom klase `Connection`
+treba pozvati metoda `prepareStatement`, ali ta metoda prima ulazni parametar tipa `String`
+koji oznacava upit. Taj ulazni parametar nije ponuden tako da nista nije ispravno. Da je ponuden
+bilo bi vise tocnih odgovora.
+
+**Evo primjera takvog koda**
+```java
+// Koristenje objekta Statement
+try (Connection connection = connectThread.getConnection()) {
+        String sqlQuery = "SELECT * FROM CATEGORY";
+        Statement stmt = connection.createStatement();
+        stmt.execute(sqlQuery);
+        ResultSet rs = stmt.getResultSet();
+        mapResultSetToCategoryList(rs, categories);
+        } 
+  catch (SQLException ex) {
+        String message = "Dogodila se pogreška kod dohvaćanja podataka iz baze!";
+        //logger.error(message, ex);
+        System.out.println(ex);
+        System.out.println(message);
+    }
+// Koristenje objekta PreparedStatement
+        try (Connection connection = connectThread.getConnection()) {
+          String sqlQuery = "SELECT * FROM CATEGORY";
+          PreparedStatement stmt = connection.prepareStatement(sqlQuery);
+          stmt.execute(sqlQuery);
+          ResultSet rs = stmt.getResultSet();
+          mapResultSetToCategoryList(rs, categories);
+          } catch (SQLException ex) {
+          String message = "Dogodila se pogreška kod dohvaćanja podataka iz baze!";
+          //logger.error(message, ex);
+          System.out.println(ex);
+          System.out.println(message);
+        }
+```
 ## 5.zad:
 ![img_5.png](img_5.png)
 
@@ -179,3 +263,5 @@ private static Connection connectToDatabase() throws SQLException, IOException {
 ![img_8.png](img_8.png)
 
 **Rijesenje**: B i D
+
+**Objasnjenje:** Ovdje je nemoguce znati da li se baca IOException ili NullPointerException
