@@ -323,11 +323,26 @@ Rijesenje: F
 ![img_24.png](img_24.png)
 
 - ## Razliciti tipovi alertova
-- INFORMATION:
-![img_25.png](img_25.png)
-- CONFIRMATION
-![img_26.png](img_26.png)
-- WARNING
-![img_27.png](img_27.png)
-- ERROR
-![img_28.png](img_28.png)
+  - INFORMATION:
+  ![img_25.png](img_25.png)
+  - CONFIRMATION
+  ![img_26.png](img_26.png)
+  - WARNING
+  ![img_27.png](img_27.png)
+  - ERROR
+  ![img_28.png](img_28.png)
+- ## Primjer otvaranja novog ekrana klikom gumba
+```java
+ public void showAddNewItem(){
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("addNewTimeScreen.fxml"));
+        Scene scene = null;
+        try{
+            scene = new Scene(fxmlLoader.load(),600,700);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        HelloApplication.getStage().setScene(scene);
+        HelloApplication.getStage().setTitle("new");
+        HelloApplication.getStage().show();
+    }
+```
