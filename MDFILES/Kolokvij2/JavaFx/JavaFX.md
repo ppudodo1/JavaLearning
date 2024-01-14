@@ -320,4 +320,4 @@ Ovaj zadatak je prije objasnjen
 Rijesenje: F
 
 # Dodatno za JavaFX
-![javaUi.png](..%2F..%2F..%2F..%2Fkolokvij%2FjavaUi.png)
+![img_24.png](img_24.png)
