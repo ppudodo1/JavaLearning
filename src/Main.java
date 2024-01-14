@@ -1,5 +1,6 @@
 import noviPaket.Mod;
 
+import java.awt.*;
 import java.io.*;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
@@ -20,9 +21,11 @@ import java.util.stream.Stream;
 import static java.util.Arrays.asList;
 
 
+
 public class Main {
 
     public static void main(String[] args) throws IOException {
+
 
     }
 

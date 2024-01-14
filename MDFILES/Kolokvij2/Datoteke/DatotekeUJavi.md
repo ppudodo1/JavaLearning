@@ -531,6 +531,43 @@ public class Main {
         Files.delete(binarna2);
         Files.copy(binarna,binarna2);
         // Tekstualne datoteke se mogu kopirati na iste nacine
+      
+        // SERIJALIZACIJA I DESERIJALIZACIJA OBJEKATA
+      ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("dats/binarna.bin"));
+      BigDecimal broj  = new BigDecimal(1.2);
+      out.writeObject(broj);
+      //out.close();
+
+      Food pizza = new Food("pizza");
+      out.writeObject(pizza);
+      out.close();
+      try{
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("dats/binarna.bin"));
+        BigDecimal broj2 = (BigDecimal) in.readObject();
+        Food pizza2 = (Food) in.readObject();
+        System.out.println(broj2);
+        System.out.println(pizza2.name);
+        in.close();
+      }catch (IOException | ClassNotFoundException ex){
+
+      }
+      try{
+        ObjectOutputStream out2 = new ObjectOutputStream(new FileOutputStream("dats/binarna2.bin"));
+        String zapisi = "Zapis\nu\nJavi";
+        out2.writeObject(zapisi);
+        // Kod ObjectInputStream je bitno naglasiti da kada idemo deserijalizirati sadrzaj datoteke koji smo
+        // sami upisali odnosno nismo serijalizirali dobivat cemo gresko jer citamo neserijalizirani objekt
+        // Svi referentni tipovi varijabli u Javi sami po sebi implementiraju sucljele Serializable
+        // tako da necemo dobivati gresku kod serijalizacije.
+        ObjectInputStream in = new ObjectInputStream(new FileInputStream("dats/binarna2.bin"));
+        String procitano  = (String) in.readObject();
+        System.out.println(procitano);
+        in.close();
+      }catch (IOException | ClassNotFoundException ex) {
+        ex.printStackTrace();
+      }
+      
+      
     }
 
 }
