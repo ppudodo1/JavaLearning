@@ -265,3 +265,97 @@ try (Connection connection = connectThread.getConnection()) {
 **Rijesenje**: B i D
 
 **Objasnjenje:** Ovdje je nemoguce znati da li se baca IOException ili NullPointerException
+
+
+
+# Dodatni primjeri rada sa bazom
+```java
+package org.example;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
+
+// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
+// then press Enter. You can now see whitespace characters in your code.
+public class Main {
+    public static void main(String[] args) throws IOException {
+
+
+        Properties prop = new Properties();
+        prop.load(new FileReader("dats/database.properties")); // FileReader uvijek baca IOException
+        String path = prop.getProperty("url");
+        String username = prop.getProperty("username");
+        String password = prop.getProperty("password");
+            // Obicno koristenje statementa za dohvacanje podataka iz baze
+            try(Connection veza = DriverManager.getConnection(path,username,password);){
+                Statement stmt = veza.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM CATEGORY ");
+                while(rs.next()){
+                        Integer id = rs.getInt("ID");
+                        String name = rs.getString("NAME");
+                        String desc = rs.getString("DESCRIPTION");
+                    System.out.println(name);
+                }
+            }catch (SQLException ex){
+                System.out.println(ex);
+            }
+            // Koristenje PreparedStatementa za stavljanje podataka u bazu
+            try(Connection veza = DriverManager.getConnection(path,username,password)){
+                    String insertQuery = "INSERT INTO CATEGORY(NAME, DESCRIPTION) VALUES(?, ?)";
+                    PreparedStatement preparedStatement = veza.prepareStatement(insertQuery);
+                    preparedStatement.setString(1,"Ime");
+                    preparedStatement.setString(2,"Opis");
+                    Integer brojRedova = preparedStatement.executeUpdate();
+                    System.out.println("Broj redova: "+ brojRedova);
+            }catch (SQLException ex){
+                System.out.println(ex);
+            }
+            // Koristenje transtakcija za stavljanje podataka u bazu
+        try(Connection veza = DriverManager.getConnection(path,username,password)){
+                veza.setAutoCommit(false);
+                PreparedStatement updateCat1 = veza.prepareStatement("UPDATE CATEGORY SET NAME = ? WHERE DESCRIPTION = ?");
+                // Sto ovaj kod radi je samo trazi ime kategorije sa odredenim opisom i postavlja mu novo ime
+                updateCat1.setString(1,"Novo Ime"); // Ovdje se za ovaj paramterindex ne misli na SQL tablicu
+                //nego na query postavljen gore
+                updateCat1.setString(2,"Opis");
+                updateCat1.executeUpdate();
+                veza.commit();
+                veza.setAutoCommit(true);
+
+        }catch (SQLException ex){
+            System.out.println(ex);
+        }
+        // Filtririranje podataka iz baze koristenjem querya
+        try(Connection veza = DriverManager.getConnection(path,username,password)){
+                Map<Integer, Object> queryParams = new HashMap<>();
+                String baseQuery  ="SELECT * FROM CATEGORY WHERE 1=1";
+                baseQuery +=" AND NAME = ?";
+            queryParams.put(1, "test1");
+            baseQuery+=" AND DESCRIPTION = ?";
+            queryParams.put(2,"test1");
+            PreparedStatement preparedStatement = veza.prepareStatement(baseQuery);
+            for(Integer num : queryParams.keySet()){
+                    if(queryParams.get(num) instanceof String st){
+                            preparedStatement.setString(num,st);
+                    }
+            }
+            preparedStatement.execute();
+            ResultSet rs = preparedStatement.getResultSet(); // preparedStatement ima metodu getResultSet
+            while(rs.next()){
+                String name = rs.getString("NAME");
+                String desc = rs.getString("DESCRIPTION");
+                System.out.println(name + " : "+ desc);
+            }
+        }catch (SQLException ex){
+            System.out.println(ex);
+        }
+    }
+}
+
+
+```

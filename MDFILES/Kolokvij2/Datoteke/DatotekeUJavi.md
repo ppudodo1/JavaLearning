@@ -149,6 +149,12 @@ koristenja metode printf, kao u C-u
 ```java
   Formatter output = new Formatter("clients.txt");
     output.format("%d %s %s %.2f%n", cijeliBroj,string1,string2,double);
+// Jos jedan primjer koristenja formmatera
+  try (Formatter formatter = new Formatter(new File("dats/example.txt"))) {
+                formatter.format("%s %d %f%n","Hello",43,12.2);
+        }catch (FileNotFoundException ex){
+            System.out.println(ex);
+        }
 ```
 - U slucaju nedostatka prava za koristenje datoteke baca se iznimka `SecurityException`
 ## Tokovi za citanje i zapisivanje podataka u datoteke

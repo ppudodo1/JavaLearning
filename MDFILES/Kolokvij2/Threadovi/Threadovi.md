@@ -411,3 +411,38 @@ ona se ne moze ponovno pozvati samo se mogu dohvacati vrijednosti iz njenog obje
 ![img_8.png](img_8.png)
 
 **Rijesenje** Svaka nit u javi ima stog za pozivanje metoda (call stack) i programsko brojilo (program counter)
+
+
+# Dodatni primjer niti sa KeyFrame klasom
+```java
+public class CategoryChecker extends DatabaseThread implements Runnable{
+    List<Category> categoryList;
+
+    public CategoryChecker(List<Category> categoryList) {
+        this.categoryList = categoryList;
+    }
+
+
+    @Override
+    public void run() {
+        
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Category");
+                    alert.setHeaderText("Category: " + "Test");
+                    alert.setContentText("Category description: " +"Run test");
+                    
+                    alert.showAndWait();
+
+    }
+
+}
+Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Platform.runLater(new CategoryChecker(cats));
+            }
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+```
