@@ -73,3 +73,66 @@ public void prikaziKnjige() {
     }
 }
 ```
+
+# Dodatno za JavaFX MVC
+- ### Nacini za dohvacanje i postavljanje vrijednosti odredenih elemenata
+  
+  ```java
+         @FXML
+        private ComboBox<String> category;
+        private CheckBox check;
+        private ColorPicker colorPicker;
+        public void initialize(){
+            category.getItems().addAll("Food","Technical equipment","Literature");
+            test.setSelected(true);
+            colorPicker.setValue(Color.RED); //enum
+        }     
+        public void getValue(){
+            String val = category.getValue();
+            Boolean val2 = check.isSelected();
+            Color colorvalue = colorPicker.getValue();
+        }     
+  ```
+- ### Postavljanje vrijednosti u tablicu se vrsi pomocu metode `setCellValueFactory`. Evo primjera takve 
+metode:
+```java
+itemNameTableColumn.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Item,String>, ObservableValue<String>>(){
+    public ObservableValue<String> call(TableColumn.CellDataFeatures<Item, String> param) {
+        return new ReadOnlyStringWrapper(param.getValue().getName());
+    }
+});
+```
+-  Objasnjenje ovog koda:
+    - pozivamo `setCellValueFactory` metodu nad objektom kako bi mogli postaviti vrijednost celije na UI-u
+    - unutar te metode pozivamo anonimnu klasu (slicno kao u JS-u) naziva `Callback` koja prima dva genericka paramtera
+   u nasem slucaju to su podatci o celiji u koju zapisujemo podatke i tip objekta koji cemo zapisivati u celiju u nasem slucaju
+   to je `Observable` tip objekta.
+    - U nastavku pisemo metodu `call` koja je pokrenuta od strane JavaFX-a kako bi dobili vrijednost koja ce biti zapisana
+   u celiji
+    - U `call` metodi pisemo `return new ReadOnlyStringWrapper` sto nam daje tip objekta Observable<String> koji se moze
+   zapisati na UI
+   
+- ### Primjer koristenja `ListChangeListener` klase:
+```java
+
+    public void initialize() {
+        // ... your existing code ...
+
+        // Add a ListChangeListener to the itemsTableView's items
+        ObservableList<Item> itemsList = itemsTableView.getItems();
+        itemsList.addListener((ListChangeListener<Item>) change -> {
+            // Handle changes to the itemsList here
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    // Handle added items
+                    System.out.println("Item(s) added");
+                }
+                if (change.wasRemoved()) {
+                    // Handle removed items
+                    System.out.println("Item(s) removed");
+                }
+                // Handle other change types if needed
+            }
+        });
+    }
+```
