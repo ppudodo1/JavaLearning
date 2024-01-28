@@ -24,6 +24,8 @@ podataka.
 ## Hijerarhija iznimaka u Javi
 ![img_1.png](img_1.png)
 
+![image](https://github.com/ppudodo1/JavaLearning/assets/53093002/bb86d7e0-bdce-4628-833e-7d4c6c981ce5)
+
 ## Oznacene i neoznacene iznimke
 Klase iznimaka koje izravno ili neizravno nasljeduju klase `RuntimeException` i `Error` spadaju u skupinu
 **neoznacenih** iznimaka. Klase koje izravno ili neizravno nasljeduju klasu `Exception`
