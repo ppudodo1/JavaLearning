@@ -66,3 +66,19 @@ kako bi mogli usporedivati **custom** objekte.
 - Treba napomenuti da su referenti tipovi klase te ako im se ne inicijalizira vrijednost da ce biti null, i daljnje
   operacije mogu baciti `NullPointerException`
 - Primtivni tipovi se automatski inicijaliziraju na 0 odnosno `false`
+
+## Date and Time Api
+- Do jave 7 koristile su se Date i Calendar klase
+- Kasnije smo imali open source library JodaTime
+- Java 8 je uvela svoj vlastiti Date and Time API po uzoru na JodaTime
+- Mozemo koristit klase samo za datum, samo za vrijeme, oboje, dan u tjednu itd.
+- Klasa Instant sluzi za koristenje trenutnog vremena i broja nanosekundi od 1.1.1970.
+
+Primjer koristenja:
+```java
+ LocalDateTime localDateTime = LocalDateTime.now();
+            System.out.println("Trenutni datum: "+localDateTime);
+            System.out.println("Nakon dva tjedna: " + localDateTime.plusWeeks(2));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
+            System.out.println("Formatirani datum: "+ localDateTime.format(formatter));
+```
