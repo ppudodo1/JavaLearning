@@ -55,3 +55,9 @@ firstDate = secondDate;
 
 Za usporedivanje objekata koristimo metodu `equals` koju je cesto potrebno nadjacati (_override_)
 kako bi mogli usporedivati **custom** objekte.
+
+## Scanner
+- Ako se ne koristi import deklaracija za Scanner tip objekta onda se on moze inicijalizirati na ovaj nacin:
+  ```java
+    java.util.Scanner unos = new java.utilScanner(System.in);
+  ```
