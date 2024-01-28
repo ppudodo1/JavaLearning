@@ -61,6 +61,14 @@ kako bi mogli usporedivati **custom** objekte.
   ```java
     java.util.Scanner unos = new java.utilScanner(System.in);
   ```
+- nextLine() ucitava cijelu liniju do entera
+- next() ucitava samo jednu rijec, slicno kao u C-u
+- nextInt() ucitava cijeli broj
+- nextFloat() ucitava realni broj
+- nextDouble() ucitava realni broj dvostruke preciznosti
+- nextBigDecimal() ucitava realni broj visestruke preciznosti
+- U slucaju neispravnog unosa baca se `InputMismatchException`
+  
 ## Referentni tipovi objekata
 - Tipovi objekata koji su samo class version od standardnih tipova podataka kao sto su int,char,double itd.
 - Treba napomenuti da su referenti tipovi klase te ako im se ne inicijalizira vrijednost da ce biti null, i daljnje
@@ -87,3 +95,9 @@ Primjer koristenja:
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy.");
             System.out.println("Formatirani datum: "+ localDateTime.format(formatter));
 ```
+
+## Formatiranje ispisa
+- System.out.print() => ispisuje tekst, ali kursor ne pomice u sljedeci redak
+- System.out.printf() => Omogucava formatiranje ispisa kao u C-u
+    - Oznaka %n oznacava isto sto i \n u C-u odnosno da se prebacujemo u novi red
+    - Kada spajamo vise stringova koristimo operator + i pri toj operaciji se implicitno poziva metoda `toString` koja pretvara objekt u String 
