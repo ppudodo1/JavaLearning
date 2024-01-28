@@ -124,9 +124,9 @@ Primjer:
 ```
 - Takoder mozemo koristi novi `yield` operator koji omogocava direktno vracanje vrijednosti iz switch-case bloka
 
-  Primjer:
-  ```java
-String godisnjeDoba = "Jesen";
+Primjer:
+```java
+tring godisnjeDoba = "Jesen";
 String translated = switch (godisnjeDoba) {
     case "Proljece":
     yield "Spring";
@@ -140,4 +140,4 @@ String translated = switch (godisnjeDoba) {
     yield "Unknown";
 };
 System.out.println("Prevedeno godišnje doba: " + translated);
-  ```
+```
