@@ -67,6 +67,11 @@ kako bi mogli usporedivati **custom** objekte.
   operacije mogu baciti `NullPointerException`
 - Primtivni tipovi se automatski inicijaliziraju na 0 odnosno `false`
 
+Primjer:
+
+![image](https://github.com/ppudodo1/JavaLearning/assets/53093002/3b96aab4-46f3-4035-8f51-f15a5b70babf)
+
+
 ## Date and Time Api
 - Do jave 7 koristile su se Date i Calendar klase
 - Kasnije smo imali open source library JodaTime
