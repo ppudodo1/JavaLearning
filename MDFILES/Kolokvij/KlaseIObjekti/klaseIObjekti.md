@@ -61,3 +61,8 @@ kako bi mogli usporedivati **custom** objekte.
   ```java
     java.util.Scanner unos = new java.utilScanner(System.in);
   ```
+## Referentni tipovi objekata
+- Tipovi objekata koji su samo class version od standardnih tipova podataka kao sto su int,char,double itd.
+- Treba napomenuti da su referenti tipovi klase te ako im se ne inicijalizira vrijednost da ce biti null, i daljnje
+  operacije mogu baciti `NullPointerException`
+- Primtivni tipovi se automatski inicijaliziraju na 0 odnosno `false`
