@@ -100,4 +100,44 @@ Primjer koristenja:
 - System.out.print() => ispisuje tekst, ali kursor ne pomice u sljedeci redak
 - System.out.printf() => Omogucava formatiranje ispisa kao u C-u
     - Oznaka %n oznacava isto sto i \n u C-u odnosno da se prebacujemo u novi red
-    - Kada spajamo vise stringova koristimo operator + i pri toj operaciji se implicitno poziva metoda `toString` koja pretvara objekt u String 
+    - Kada spajamo vise stringova koristimo operator + i pri toj operaciji se implicitno poziva metoda `toString` koja pretvara objekt u String
+ 
+## javac i java
+- Naredbe za izvodenje java koda
+- javac prevodi .java datoteku u bytecode
+- java izvrsava .class datoteku
+- Ovo je nesto slicno kao gcc i ./a.out kod linuxa sa kompajliranjem i izvodenjem C koda
+
+
+## Switch case u Javi 13
+- Od jave 13 dopusteno je koristenje lambda izraza u switch case-u
+
+Primjer:
+```java
+    String vrijednost = "2";
+    String poruka = switch(vrijednost) {
+        case "1" -> "Odabrana je prva opcija!";
+        case "2" -> "Odabrana je druga opcija!";
+        default -> "Odabrana je podrazumijevana opcija";
+    };
+    System.out.println(poruka);
+```
+- Takoder mozemo koristi novi `yield` operator koji omogocava direktno vracanje vrijednosti iz switch-case bloka
+
+  Primjer:
+  ```java
+String godisnjeDoba = "Jesen";
+String translated = switch (godisnjeDoba) {
+    case "Proljece":
+    yield "Spring";
+    case "Ljeto":
+    yield "Summer";
+    case "Jesen":
+    yield "Fall";
+    case "Zima":
+    yield "Winter";
+    default:
+    yield "Unknown";
+};
+System.out.println("Prevedeno godišnje doba: " + translated);
+  ```
