@@ -7,6 +7,7 @@ Odgovor: A,C,E.
 Objasnjenje: Ako zelimo kreirati objekt nekog
 tipa koji nasljeduje neku klasu ili implementira neko sucelje mozemo iskoristiti svojstvo polimorfizma. Odnosno mozemo kreirati objekt pomocu nadklase sa time da se korisiti poziv konstruktor podklase npr.
 ```
+java
 class Nadklasa{
 
 }
